@@ -2,6 +2,7 @@ package judger.judge
 
 import com.hg.judger.Application
 import com.hg.judger.service.JudgeService
+import com.hg.judger.vo.SubmissionInfo
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -24,7 +25,8 @@ internal class JudgeServiceTest(@Autowired private val judgeService: JudgeServic
                 "\tprintf(\"%d\", a+b);\n" +
                 "\treturn 0;\n" +
                 "}"
+        val submissionInfo = SubmissionInfo(code, "c", "1 2", "3")
 
-        assertThat(judgeService.run(code, "C", "1 2", "3")).contains("CORRECT")
+        assertThat(judgeService.run(submissionInfo).scoringCode).contains("CORRECT")
     }
 }

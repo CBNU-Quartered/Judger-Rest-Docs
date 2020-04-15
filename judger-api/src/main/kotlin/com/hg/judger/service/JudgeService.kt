@@ -2,6 +2,8 @@ package com.hg.judger.service
 
 import com.hg.judger.utils.ShellCommandProperties
 import com.hg.judger.utils.ShellCommandUtils
+import com.hg.judger.vo.ScoringResult
+import com.hg.judger.vo.SubmissionInfo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.BufferedReader
@@ -12,15 +14,15 @@ import java.io.IOException
 @Service
 class JudgeService(@Autowired private val shellCommandProperties: ShellCommandProperties) {
 
-    fun run(source: String, language: String, input: String, answer: String): String {
+    fun run(submissionInfo: SubmissionInfo): ScoringResult {
         ShellCommandUtils.execCommand(shellCommandProperties.localInitCommand)
 
-        createInputFile(input)
-        createSourceFile(source)
+        createInputFile(submissionInfo.input)
+        createSourceFile(submissionInfo.source)
         ShellCommandUtils.execCommand(shellCommandProperties.cCompileCommand)
         ShellCommandUtils.execCommand(shellCommandProperties.cRunCommand)
 
-        return checkAnswer(answer)!!
+        return ScoringResult(checkAnswer(submissionInfo.answer)!!)
     }
 
     @Throws(IOException::class)

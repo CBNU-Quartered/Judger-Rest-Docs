@@ -14,13 +14,6 @@ import reactor.core.publisher.Mono
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
 internal class JudgeControllerTest(@Autowired private val webTestClient: WebTestClient) {
-    private val logger = LoggerFactory.getLogger(JudgeControllerTest::class.java)
-
-    @Test
-    internal fun name() {
-        println("asd")
-    }
-
     @Test
     @DisplayName("C 코드 채점 테스트")
     fun grade() {
@@ -45,3 +38,5 @@ internal class JudgeControllerTest(@Autowired private val webTestClient: WebTest
             .jsonPath("$.scoringCode").isEqualTo("CORRECT ANSWER !!")
     }
 }
+
+//TODO : Junit warning
