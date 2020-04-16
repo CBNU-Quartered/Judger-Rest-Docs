@@ -15,17 +15,32 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 internal class ShellCommandPropertiesTest(@Autowired private val shellCommandProperties: ShellCommandProperties) {
 
     @Test
+    @DisplayName("Properties 바인딩 테스트 - testFileName")
+    fun getTestFileName() {
+        print(shellCommandProperties.testFileName)
+        assertThat(shellCommandProperties.testFileName).isNotNull()
+    }
+
+    @Test
+    @DisplayName("Properties 바인딩 테스트 - inputFileName")
+    fun getInputFileName() {
+        print(shellCommandProperties.inputFileName)
+        assertThat(shellCommandProperties.inputFileName).isNotNull()
+    }
+
+    @Test
+    @DisplayName("Properties 바인딩 테스트 - outputFileName")
+    fun getOutputFileName() {
+        print(shellCommandProperties.outputFileName)
+        assertThat(shellCommandProperties.outputFileName).isNotNull()
+    }
+
+
+    @Test
     @DisplayName("Properties 바인딩 테스트 - testDir")
     fun getTestDir() {
         print(shellCommandProperties.testerDir)
         assertThat(shellCommandProperties.testerDir).isNotNull()
-    }
-
-    @Test
-    @DisplayName("Properties 바인딩 테스트 - dockerDir")
-    fun getDockerDir() {
-        print(shellCommandProperties.dockerDir)
-        assertThat(shellCommandProperties.dockerDir).isNotNull()
     }
 
     @Test

@@ -27,21 +27,21 @@ class JudgeService(@Autowired private val shellCommandProperties: ShellCommandPr
 
     @Throws(IOException::class)
     private fun createSourceFile(source: String) {
-        val fileWriter = FileWriter(shellCommandProperties.testerDir + "/test.c")
+        val fileWriter = FileWriter(shellCommandProperties.testerDir + "/" + shellCommandProperties.testFileName + ".c")
         fileWriter.write(source)
         fileWriter.close()
     }
 
     @Throws(IOException::class)
     private fun createInputFile(input: String) {
-        val fileWriter = FileWriter(shellCommandProperties.testerDir + "/input.txt")
+        val fileWriter = FileWriter(shellCommandProperties.testerDir + "/" + shellCommandProperties.inputFileName)
         fileWriter.write(input)
         fileWriter.close()
     }
 
     @Throws(IOException::class)
     private fun checkAnswer(answer: String): String? {
-        val br = BufferedReader(FileReader(shellCommandProperties.testerDir + "/output.txt"))
+        val br = BufferedReader(FileReader(shellCommandProperties.testerDir + "/" + shellCommandProperties.outputFileName))
         var output = ""
         var temp: String?
         while (br.readLine().also { temp = it } != null) output += temp
