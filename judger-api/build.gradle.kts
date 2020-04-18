@@ -21,7 +21,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "junit")
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
