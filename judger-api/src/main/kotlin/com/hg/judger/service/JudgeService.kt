@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.FileWriter
-import java.io.IOException
 
 @Service
 class JudgeService(@Autowired private val shellCommandProperties: ShellCommandProperties) {
@@ -18,28 +17,28 @@ class JudgeService(@Autowired private val shellCommandProperties: ShellCommandPr
         ShellCommandUtils.execCommand(shellCommandProperties.localInitCommand)
 
         createInputFile(submissionInfo.input)
-        createSourceFile(submissionInfo.source)
+        createSourceFile(submissionInfo.source, submissionInfo.language)
         ShellCommandUtils.execCommand(shellCommandProperties.cCompileCommand)
         ShellCommandUtils.execCommand(shellCommandProperties.cRunCommand)
 
         return ScoringResult(checkAnswer(submissionInfo.answer)!!)
     }
 
-    @Throws(IOException::class)
-    private fun createSourceFile(source: String) {
-        val fileWriter = FileWriter(shellCommandProperties.testerDir + "/" + shellCommandProperties.testFileName + ".c")
-        fileWriter.write(source)
-        fileWriter.close()
+    private fun createSourceFile(source: String, language: String) {
+        val fileWriter = FileWriter(shellCommandProperties.testerDir + "/" + shellCommandProperties.testFileName + "." + language)
+        createFile(fileWriter, source)
     }
 
-    @Throws(IOException::class)
     private fun createInputFile(input: String) {
         val fileWriter = FileWriter(shellCommandProperties.testerDir + "/" + shellCommandProperties.inputFileName)
-        fileWriter.write(input)
+        createFile(fileWriter, input)
+    }
+
+    private fun createFile(fileWriter: FileWriter, content: String) {
+        fileWriter.write(content)
         fileWriter.close()
     }
 
-    @Throws(IOException::class)
     private fun checkAnswer(answer: String): String? {
         val br = BufferedReader(FileReader(shellCommandProperties.testerDir + "/" + shellCommandProperties.outputFileName))
         var output = ""
