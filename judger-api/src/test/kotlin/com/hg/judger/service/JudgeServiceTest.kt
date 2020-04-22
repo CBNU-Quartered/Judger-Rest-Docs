@@ -14,10 +14,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(classes = [Application::class])
 internal class JudgeServiceTest(@Autowired private val judgeService: JudgeService) {
+
     @Test
     @DisplayName("C 코드 채점 테스트")
-    @Throws(Exception::class)
-    fun run() {
+    fun run1() {
         val code = "#include<stdio.h>\n" +
                 "int main(){\n" +
                 "\tint a, b;\n" +
@@ -26,6 +26,22 @@ internal class JudgeServiceTest(@Autowired private val judgeService: JudgeServic
                 "\treturn 0;\n" +
                 "}"
         val submissionInfo = SubmissionInfo(code, "c", "1 2", "3")
+
+        assertThat(judgeService.run(submissionInfo).scoringCode).contains("CORRECT")
+    }
+
+    @Test
+    @DisplayName("CPP 코드 채점 테스트")
+    internal fun run2() {
+        val code = "#include <iostream>\n" +
+                "using namespace std;\n" +
+                "int main(){\n" +
+                "\tint a, b;\n" +
+                "\tcin >> a >> b;\n" +
+                "\tcout << a+b;\n" +
+                "\treturn 0;\n" +
+                "}"
+        val submissionInfo = SubmissionInfo(code, "cpp", "1 2", "3")
 
         assertThat(judgeService.run(submissionInfo).scoringCode).contains("CORRECT")
     }

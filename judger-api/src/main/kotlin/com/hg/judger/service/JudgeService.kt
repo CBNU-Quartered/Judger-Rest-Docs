@@ -17,8 +17,16 @@ class JudgeService(@Autowired private val shellCommandProperties: ShellCommandPr
         ShellCommandUtils.execCommand(shellCommandProperties.localInitCommand)
 
         createInputFile(submissionInfo.input)
-        createSourceFile(submissionInfo.source, submissionInfo.language)
-        ShellCommandUtils.execCommand(shellCommandProperties.cCompileCommand)
+
+        if("c" == submissionInfo.language) {
+            createSourceFile(submissionInfo.source, submissionInfo.language)
+            ShellCommandUtils.execCommand(shellCommandProperties.cCompileCommand)
+        }
+        else{
+            createSourceFile(submissionInfo.source, "cc")
+            ShellCommandUtils.execCommand(shellCommandProperties.cppCompileCommand)
+        }
+
         ShellCommandUtils.execCommand(shellCommandProperties.cRunCommand)
 
         return ScoringResult(checkAnswer(submissionInfo.answer)!!)

@@ -63,4 +63,11 @@ internal class ShellCommandPropertiesTest(@Autowired private val shellCommandPro
         print(shellCommandProperties.cRunCommand)
         assertThat(shellCommandProperties.cRunCommand).isNotNull()
     }
+
+    @Test
+    @DisplayName("Properties 바인딩 테스트 - cppCompileCommand")
+    fun getCppCompileCommand() {
+        print(shellCommandProperties.cppCompileCommand)
+        assertThat(shellCommandProperties.cppCompileCommand).isNotNull()
+    }
 }

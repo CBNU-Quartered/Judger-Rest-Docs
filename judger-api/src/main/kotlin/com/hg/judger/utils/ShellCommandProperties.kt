@@ -13,4 +13,6 @@ class ShellCommandProperties {
     lateinit var localInitCommand: String
     lateinit var cCompileCommand: String
     lateinit var cRunCommand: String
+
+    lateinit var cppCompileCommand: String
 }
