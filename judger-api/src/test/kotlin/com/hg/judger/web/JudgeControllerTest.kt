@@ -3,8 +3,8 @@ import com.hg.judger.vo.SubmissionInfo
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
+@AutoConfigureWebTestClient(timeout = "10000")
 internal class JudgeControllerTest(@Autowired private val webTestClient: WebTestClient) {
     @Test
     @DisplayName("C 코드 채점 테스트")
